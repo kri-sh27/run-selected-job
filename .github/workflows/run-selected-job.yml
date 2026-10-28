@@ -9,8 +9,9 @@ on:
         type: string
 
 jobs:
-  execute:
+  execute_other_jobs:
     name: Execute ${{ inputs.target_job }}
+    if: ${{ inputs.target_job != 'job5' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -37,11 +38,21 @@ jobs:
             job4)
               bash ./scripts/jobs/job4.sh
               ;;
-            job5)
-              bash ./scripts/jobs/job5.sh
-              ;;
             *)
               echo "Unsupported job: $TARGET_JOB"
               exit 1
               ;;
           esac
+
+  execute_job5:
+    name: Execute Job 5 - Production
+    if: ${{ inputs.target_job == 'job5' }}
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Execute Job 5
+        run: bash ./scripts/jobs/job5.sh
