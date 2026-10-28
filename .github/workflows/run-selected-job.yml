@@ -26,23 +26,22 @@ jobs:
 
           case "$TARGET_JOB" in
             job1)
-              ./scripts/jobs/job1.sh
+              bash ./scripts/jobs/job1.sh
               ;;
             job2)
-              ./scripts/jobs/job2.sh
+              bash ./scripts/jobs/job2.sh
               ;;
             job3)
-              ./scripts/jobs/job3.sh
+              bash ./scripts/jobs/job3.sh
               ;;
             job4)
-              ./scripts/jobs/job4.sh
+              bash ./scripts/jobs/job4.sh
               ;;
             job5)
-              ./scripts/jobs/job5.sh
+              bash ./scripts/jobs/job5.sh
               ;;
             *)
               echo "Unsupported job: $TARGET_JOB"
               exit 1
               ;;
           esac
-          
