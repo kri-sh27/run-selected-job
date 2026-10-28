@@ -47,7 +47,6 @@ jobs:
       target_job: job4
 
   job5:
-    if: ${{ !cancelled() && (inputs.start_job == 'job1' || inputs.start_job == 'job2' || inputs.start_job == 'job3' || inputs.start_job == 'job4' || inputs.start_job == 'job5') }}
     needs: job4
     uses: ./.github/workflows/run-selected-job.yml
     with:
