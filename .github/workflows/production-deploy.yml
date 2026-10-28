@@ -1,0 +1,17 @@
+name: Production Deployment
+
+on:
+  workflow_call:
+
+jobs:
+  job5:
+    name: Execute Job 5 - Production
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Execute Job 5
+        run: bash ./scripts/jobs/job5.sh

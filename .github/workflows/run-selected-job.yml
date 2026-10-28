@@ -4,14 +4,12 @@ on:
   workflow_call:
     inputs:
       target_job:
-        description: Job to execute
         required: true
         type: string
 
 jobs:
-  execute_other_jobs:
+  execute:
     name: Execute ${{ inputs.target_job }}
-    if: ${{ inputs.target_job != 'job5' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -26,33 +24,12 @@ jobs:
           set -euo pipefail
 
           case "$TARGET_JOB" in
-            job1)
-              bash ./scripts/jobs/job1.sh
-              ;;
-            job2)
-              bash ./scripts/jobs/job2.sh
-              ;;
-            job3)
-              bash ./scripts/jobs/job3.sh
-              ;;
-            job4)
-              bash ./scripts/jobs/job4.sh
-              ;;
+            job1) bash ./scripts/jobs/job1.sh ;;
+            job2) bash ./scripts/jobs/job2.sh ;;
+            job3) bash ./scripts/jobs/job3.sh ;;
+            job4) bash ./scripts/jobs/job4.sh ;;
             *)
               echo "Unsupported job: $TARGET_JOB"
               exit 1
               ;;
           esac
-
-  execute_job5:
-    name: Execute Job 5 - Production
-    if: ${{ inputs.target_job == 'job5' }}
-    runs-on: ubuntu-latest
-    environment: production
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Execute Job 5
-        run: bash ./scripts/jobs/job5.sh
