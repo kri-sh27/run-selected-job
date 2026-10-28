@@ -1,0 +1,25 @@
+name: Rerun Selected Job
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_job:
+        description: Select the job to execute
+        required: true
+        type: choice
+        options:
+          - job1
+          - job2
+          - job3
+          - job4
+          - job5
+
+permissions:
+  contents: read
+
+jobs:
+  rerun:
+    name: Rerun ${{ inputs.target_job }}
+    uses: ./.github/workflows/run-selected-job.yml
+    with:
+      target_job: ${{ inputs.target_job }}

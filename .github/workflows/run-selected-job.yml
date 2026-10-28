@@ -1,0 +1,47 @@
+name: Run Selected Job
+
+on:
+  workflow_call:
+    inputs:
+      target_job:
+        description: Job to execute
+        required: true
+        type: string
+
+jobs:
+  execute:
+    name: Execute ${{ inputs.target_job }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Execute selected job
+        env:
+          TARGET_JOB: ${{ inputs.target_job }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          case "$TARGET_JOB" in
+            job1)
+              ./scripts/jobs/job1.sh
+              ;;
+            job2)
+              ./scripts/jobs/job2.sh
+              ;;
+            job3)
+              ./scripts/jobs/job3.sh
+              ;;
+            job4)
+              ./scripts/jobs/job4.sh
+              ;;
+            job5)
+              ./scripts/jobs/job5.sh
+              ;;
+            *)
+              echo "Unsupported job: $TARGET_JOB"
+              exit 1
+              ;;
+          esac
