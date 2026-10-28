@@ -7,7 +7,9 @@ jobs:
   job5:
     name: Execute Job 5 - Production
     runs-on: ubuntu-latest
-    environment: production
+
+    environment:
+      name: production
 
     steps:
       - name: Checkout repository
